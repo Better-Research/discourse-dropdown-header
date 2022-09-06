@@ -23,6 +23,9 @@ export default apiInitializer("0.11.1", (api) => {
   user_tags.forEach((tag) => {
     items2.push({"headerLinkId":  0, "title": tag, "icon": "scroll", "url": "/tag/" + tag, "description": ""})
   });
+  for (let i = 0; i < 50; i++) {
+    items2.push({"headerLinkId":  0, "title": "1996-001", "icon": "scroll", "url": "/tag/" + "1996-001", "description": ""})
+  }
 
   api.decorateWidget(links_position, (helper) => {
     const scrolling = helper.attrs.minimized;

@@ -56,6 +56,9 @@
     transform: scale(0);
     transition: transform 0.2s ease;
     transition-delay: 0.3s;
+    max-height: 300px;
+    overflow: scroll;
+    
 
     &-link {
       color: $dropdown_item_color;
