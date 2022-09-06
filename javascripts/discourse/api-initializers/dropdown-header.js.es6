@@ -16,6 +16,9 @@ export default apiInitializer("0.11.1", (api) => {
   var user_tags = api.getCurrentUser().custom_fields["tags"];
   //console.log(user_tags);
   var items2 = [];
+  user_tags.sort(function(a, b) {
+    return parseInt(a.split("-")[0]) - parseInt(b.split("-")[0]);
+  });
   user_tags.forEach((tag) => {
     var description = ""
     ajax("/tag/" + tag + ".json").then(response =>  {
