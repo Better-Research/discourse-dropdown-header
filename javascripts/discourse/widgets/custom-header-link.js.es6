@@ -4,6 +4,7 @@ import DiscourseURL from "discourse/lib/url";
 import { createWidget } from "discourse/widgets/widget";
 import { h } from "virtual-dom";
 import buildIconHTML from "../lib/icon-builder";
+import Tag from "discourse/models/tag";
 
 createWidget("custom-header-link", {
   tagName: "li.custom-header-link",
@@ -13,9 +14,9 @@ createWidget("custom-header-link", {
     const iconHTML = buildIconHTML(attrs.icon);
     const titleHTML = h("span.custom-header-link-title", attrs.title);
     const permissions = this.handleLinkPermissions(attrs);
-    const allDropdownItems = settings.dropdown_links
-      ? JSON.parse(settings.dropdown_links)
-      : [];
+
+    const allDropdownItems = attrs.user_tags;
+
     const dropdownLinks = allDropdownItems.filter(
       (d) => d.headerLinkId === attrs.id
     );
@@ -53,7 +54,7 @@ createWidget("custom-header-link", {
 
   buildClasses(attrs) {
     const classes = [];
-
+    
     if (attrs.url) {
       classes.push("with-url");
     }
