@@ -14,6 +14,7 @@ export default apiInitializer("0.11.1", (api) => {
       : "home-logo:after";
 
   var user_tags = api.getCurrentUser().custom_fields["tags"];
+  user_tags = [user_tags].flat()
   //console.log(user_tags);
   var items2 = [];
   user_tags.sort(function(a, b) {
