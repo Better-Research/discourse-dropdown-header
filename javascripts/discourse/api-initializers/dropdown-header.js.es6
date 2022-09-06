@@ -17,10 +17,7 @@ export default apiInitializer("0.11.1", (api) => {
   user_tags = [user_tags].flat()
   //console.log(user_tags);
   var items2 = [];
-  user_tags.sort(function(a, b) {
-    return parseInt(a.split("-")[0]) - parseInt(b.split("-")[0]) || parseInt(a.split("-")[1]) - parseInt(b.split("-")[1]);
-  });
-  user_tags.reverse();
+  
   user_tags.forEach((tag) => {
     var description = ""
     ajax("/tag/" + tag + ".json").then(response =>  {
@@ -33,7 +30,12 @@ export default apiInitializer("0.11.1", (api) => {
 
   api.decorateWidget(links_position, (helper) => {
     const scrolling = helper.attrs.minimized;
-    
+    items2.sort(function(a, b) {
+      a = a["title"]
+      b = b["title"]
+      return parseInt(a.split("-")[0]) - parseInt(b.split("-")[0]) || parseInt(a.split("-")[1]) - parseInt(b.split("-")[1]);
+    });
+    items2.reverse();
     headerLinks[0]["user_tags"] = items2;
     return helper.widget.attach("custom-header-links", {
       headerLinks,
