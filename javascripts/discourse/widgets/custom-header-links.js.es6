@@ -26,6 +26,7 @@ createWidget('custom-header-links', {
       };
     }
     else {
+      console.log(this.state.user_tags);
       this.state.user_tags.forEach((tag) => {
         var description = ""
         this.store.find("tag-info", tag).then(data => {
