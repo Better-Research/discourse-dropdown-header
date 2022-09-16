@@ -21,7 +21,7 @@ createWidget('custom-header-links', {
   transform(attrs) {
     const { headerLinks } = attrs;
     
-    if(this.state.items2.length == this.state.user_tags.length) {
+    if(this.state.items2.length == this.state.user_tags.length || !this.state.isAuthor) {
       return {
         headerLinks
       };
