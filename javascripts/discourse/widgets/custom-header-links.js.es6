@@ -60,6 +60,7 @@ createWidget('custom-header-links', {
       return api.getCurrentUser();
     });
     let user_tags = currentUser.custom_fields["tags"];
+    user_tags = [user_tags].flat();
     let isAuthor = user_tags.length != 0;
     let items2 = [];
     let isLoading = true;
