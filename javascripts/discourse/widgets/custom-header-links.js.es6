@@ -27,14 +27,12 @@ createWidget('custom-header-links', {
       };
     }
     else {
-      console.log(this.state.user_tags);
       this.state.user_tags.forEach((tag) => {
         var description = ""
         this.store.find("tag-info", tag).then(data => {
             description = data.description; // data["topic_list"]["tags"][0]["description"];
             this.state.items2.push({ "title": tag, "url": "/tag/" + tag,  "description": description})
             if(this.state.items2.length == this.state.user_tags.length) {
-              console.log("Loaded")
               this.state.isLoading = false;
               this.state.items2.sort(function(a, b) {
                 a = a["title"];
@@ -61,10 +59,9 @@ createWidget('custom-header-links', {
       return api.getCurrentUser();
     });
     let user_tags = currentUser.custom_fields["tags"];
-    console.log(user_tags);
+    let isAuthor = user_tags != undefined;
     user_tags = [user_tags].flat();
-    let isAuthor = user_tags.length != 0;
-    console.log(isAuthor);
+    
     let items2 = [];
     let isLoading = true;
     if (sessionStorage.getItem("user-papers") !== null ) {
@@ -77,8 +74,6 @@ createWidget('custom-header-links', {
       }
     }
     
-    
-    console.log("State refreshed");
     
     return {
       mobileView,
