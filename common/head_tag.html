@@ -1,14 +1,16 @@
 <script type="text/discourse-plugin" version="0.8">  
     function filterFunction() {
-        var input, filter, ul, li, a, i, link, div;
+        var input, filter, ul, li, a, t, i, link, div;
         input = document.getElementById("myPapersSearchBar");
         filter = input.value.toUpperCase();
         div = document.getElementById("customHeaderDropdown");
         a = div.getElementsByClassName("custom-header-link-desc");
+        t = div.getElementsByClassName("custom-header-link-title");
         link  = div.getElementsByTagName("a");
         for (i = 0; i < a.length; i++) {
             var txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            var titleValue = t[i].textContent || t[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1 || titleValue.toUpperCase().indexOf(filter) > -1) {
                 link[i].style.display = "";
             } else {
                 link[i].style.display = "none";
