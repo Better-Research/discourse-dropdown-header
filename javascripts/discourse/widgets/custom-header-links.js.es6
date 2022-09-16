@@ -10,9 +10,9 @@ createWidget('custom-header-links', {
     const { scrolling } = attrs;
     const classes = [];
 
-    // if (scrolling) {
-    //   classes.push('scrolling');
-    // }
+    if (scrolling) {
+      classes.push('scrolling');
+    }
 
     return classes;
   },
@@ -20,43 +20,33 @@ createWidget('custom-header-links', {
   transform(attrs) {
     const { headerLinks } = attrs;
     
-
-
     if(this.state.items2.length == this.state.user_tags.length) {
       return {
         headerLinks
       };
     }
-    this.state.user_tags.forEach((tag) => {
-      var description = ""
-      this.store.find("tag-info", tag).then(data => {
-          description = data.description; // data["topic_list"]["tags"][0]["description"];
-          this.state.items2.push({ "title": tag, "url": "/tag/" + tag,  "description": description})
-          if(this.state.items2.length == this.state.user_tags.length) {
-            console.log("Loaded")
-            this.state.isLoading = false;
-            this.state.items2.sort(function(a, b) {
-              a = a["title"];
-              b = b["title"];
-              return parseInt(a.split("-")[0]) - parseInt(b.split("-")[0]) || parseInt(a.split("-")[1]) - parseInt(b.split("-")[1]);
-            });
-            this.state.items2.reverse();
-            sessionStorage.setItem("user-papers", JSON.stringify(this.state.items2));
-            this.scheduleRerender();
-            // sessionStorage.setItem("user-papers", JSON.stringify(desc_map));
-            // console.log(items2)
-            // items2.sort(function(a, b) {
-            //   a = a["title"];
-            //   b = b["title"];
-            //   return parseInt(a.split("-")[0]) - parseInt(b.split("-")[0]) || parseInt(a.split("-")[1]) - parseInt(b.split("-")[1]);
-            // });
-            // items2.reverse();
-            // sessionStorage.setItem("paper-links", JSON.stringify(items2));
-            // console.log("event");
-            // api.dispatchWidgetAppEvent("header-buttons", "custom-header-links", "force:refresh");
-          }
+    else {
+      this.state.user_tags.forEach((tag) => {
+        var description = ""
+        this.store.find("tag-info", tag).then(data => {
+            description = data.description; // data["topic_list"]["tags"][0]["description"];
+            this.state.items2.push({ "title": tag, "url": "/tag/" + tag,  "description": description})
+            if(this.state.items2.length == this.state.user_tags.length) {
+              console.log("Loaded")
+              this.state.isLoading = false;
+              this.state.items2.sort(function(a, b) {
+                a = a["title"];
+                b = b["title"];
+                return parseInt(a.split("-")[0]) - parseInt(b.split("-")[0]) || parseInt(a.split("-")[1]) - parseInt(b.split("-")[1]);
+              });
+              this.state.items2.reverse();
+              sessionStorage.setItem("user-papers", JSON.stringify(this.state.items2));
+              this.scheduleRerender();
+            }
+        });
       });
-    });
+    }
+    
     return {
       headerLinks
     };
@@ -131,7 +121,7 @@ createWidget('custom-header-links', {
             </div>
           {{/if}}
           {{#unless this.state.isLoading}}
-          <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+          <input type="text" placeholder="Search by title..." id="myPapersSearchBar" onkeyup="filterFunction()">
             {{#each this.state.items2 as |item|}}
               <a href={{item.url}}>
               <li title={{item.title}} class="custom-header-dropdown-link">
