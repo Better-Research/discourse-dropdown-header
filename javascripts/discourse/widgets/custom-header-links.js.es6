@@ -1,11 +1,12 @@
 import hbs from 'discourse/widgets/hbs-compiler';
 import { createWidget } from 'discourse/widgets/widget';
 import { withPluginApi } from "discourse/lib/plugin-api";
+import { action } from '@ember/object';
 
 createWidget('custom-header-links', {
   tagName: 'nav.custom-header-links',
   buildKey: (attrs) => `custom-header-links-${attrs.id}`,
-
+  
   buildClasses(attrs) {
     const { scrolling } = attrs;
     const classes = [];
@@ -123,7 +124,7 @@ createWidget('custom-header-links', {
             </div>
           {{/if}}
           {{#unless this.state.isLoading}}
-          <input type="text" placeholder="Search by title..." id="myPapersSearchBar" onkeyup="filterFunction()">
+          <input id="myPapersSearchBar" type="text" placeholder="Search by title..."/>
             {{#each this.state.items2 as |item|}}
               <a href={{item.url}}>
               <li title={{item.title}} class="custom-header-dropdown-link">
