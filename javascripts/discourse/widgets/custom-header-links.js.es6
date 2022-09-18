@@ -121,7 +121,7 @@ createWidget('custom-header-links', {
             </div>
           {{/if}}
           {{#unless this.state.isLoading}}
-          <input id="myPapersSearchBar" type="text" placeholder="Search by title..."/>
+          <input id="myPapersSearchBar" type="text" placeholder="Search by title or year"/>
             {{#each this.state.items2 as |item|}}
               <a href={{item.url}}>
               <li title={{item.title}} class="custom-header-dropdown-link">
