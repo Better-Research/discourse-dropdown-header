@@ -5,6 +5,9 @@ export default apiInitializer("0.11.1", (api) => {
     return;
   }
 
+  if(api.getCurrentUser() === null) {
+    return;
+  }
   var headerLinks = JSON.parse(settings.header_links);
 
   const links_position =
